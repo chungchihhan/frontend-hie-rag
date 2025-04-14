@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ChatMessage, QueryResultRecord } from "@/types";
+import { ChatMessage, QueryRecord } from "@/types";
 import MessageCard from "./MessageCard";
 import ResultMessageCard from "./ResultMessageCard";
-import { queryChunks } from "@/lib/api";
+import { queryChunks, queryChunksChat } from "@/lib/api";
 
 interface ChatInterfaceProps {
   fileId: string;
@@ -14,7 +14,7 @@ interface ChatInterfaceProps {
 interface ConversationEntry {
   type: "message" | "result";
   id: string;
-  content: ChatMessage | QueryResultRecord[];
+  content: ChatMessage | QueryRecord[];
   timestamp: Date;
 }
 
@@ -73,18 +73,21 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
       console.log("Querying chunks for file ID:", fileId);
 
       // Query the API
-      const response = await queryChunks(fileId, {
-        query_text: input,
+      const chatResponse = await queryChunksChat(fileId, {
+        human_message: input,
         n_results: 3, // Default to 3 results
       });
 
-      console.log("Query chunks response:", response);
-
       // Create an entry for the results
       const resultEntry: ConversationEntry = {
-        type: "result",
-        id: `result-${Date.now()}`,
-        content: response.results,
+        type: "message",
+        id: `chat-${Date.now()}`,
+        content: {
+          id: `chat-${Date.now()}`,
+          content: chatResponse.response.content,
+          isUser: false,
+          timestamp: new Date(),
+        },
         timestamp: new Date(),
       };
 
@@ -127,13 +130,11 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
             {entry.type === "message" && (
               <MessageCard message={entry.content as ChatMessage} />
             )}
-            {entry.type === "result" && (
+            {/* {entry.type === "result" && (
               <div className="flex justify-start">
-                <ResultMessageCard
-                  results={entry.content as QueryResultRecord[]}
-                />
+                <ResultMessageCard results={entry.content as QueryRecord[]} />
               </div>
-            )}
+            )} */}
           </div>
         ))}
 

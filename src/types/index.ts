@@ -5,7 +5,12 @@ export interface QueryRequest {
   n_results: number;
 }
 
-export interface QueryResultRecord {
+export interface QueryChatRequest {
+  human_message: string;
+  n_results: number;
+}
+
+export interface QueryRecord {
   id: string;
   distance: number;
   metadata: {
@@ -16,14 +21,35 @@ export interface QueryResultRecord {
   };
 }
 
-export interface QueryResponse {
+export interface QuerySummariesResponse {
   message: string;
-  results: QueryResultRecord[];
+  summaries: QueryRecord[];
 }
 
+export interface QueryChunksResponse {
+  message: string;
+  file_id: string;
+  summary: QueryRecord[];
+  chunks: QueryRecord[];
+}
+
+export interface QueryChunksChatResponse {
+  message: string;
+  response: {
+    content: string;
+    [key: string]: any;
+  };
+}
 export interface ChatMessage {
   id: string;
   content: string;
   isUser: boolean;
+  timestamp: Date;
+}
+
+export interface ConversationEntry {
+  type: "message" | "result" | "chatResult";
+  id: string;
+  content: ChatMessage | QueryRecord[] | string;
   timestamp: Date;
 }

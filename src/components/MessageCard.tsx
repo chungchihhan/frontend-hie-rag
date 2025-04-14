@@ -1,6 +1,7 @@
 // src/components/MessageCard.tsx
 
 import { ChatMessage } from "@/types";
+import ReactMarkdown from "react-markdown";
 
 interface MessageCardProps {
   message: ChatMessage;
@@ -27,7 +28,9 @@ export default function MessageCard({ message }: MessageCardProps) {
             })}
           </span>
         </div>
-        <div className={isUser ? "text-white" : "text-gray-800"}>{content}</div>
+        <div className={isUser ? "text-white" : "text-gray-800"}>
+          <ReactMarkdown>{content}</ReactMarkdown>
+        </div>
       </div>
     </div>
   );

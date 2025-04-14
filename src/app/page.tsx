@@ -5,12 +5,12 @@
 import { useState } from "react";
 import SearchForm from "@/components/SearchForm";
 import ResultCard from "@/components/ResultCard";
-import { QueryResponse, QueryResultRecord } from "@/types";
-import { querySummary } from "@/lib/api";
+import { QueryRecord } from "@/types";
+import { querySummaries } from "@/lib/api";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [results, setResults] = useState<QueryResultRecord[]>([]);
+  const [summaries, setSummaries] = useState<QueryRecord[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
@@ -19,18 +19,18 @@ export default function Home() {
     setError(null);
 
     try {
-      const response = await querySummary({
+      const response = await querySummaries({
         query_text: query,
         n_results: nResults,
       });
 
-      setResults(response.results);
+      setSummaries(response.summaries);
       setHasSearched(true);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred"
       );
-      setResults([]);
+      setSummaries([]);
     } finally {
       setIsLoading(false);
     }
@@ -61,19 +61,19 @@ export default function Home() {
         </div>
       )}
 
-      {hasSearched && !isLoading && results.length === 0 && !error && (
+      {hasSearched && !isLoading && summaries.length === 0 && !error && (
         <div className="w-full max-w-2xl p-4 bg-yellow-100 border border-yellow-300 rounded-lg text-yellow-800">
-          No results found. Try a different query.
+          No summaries found. Try a different query.
         </div>
       )}
 
-      {results.length > 0 && (
+      {summaries.length > 0 && (
         <div className="w-full max-w-2xl">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Results ({results.length})
+            summaries ({summaries.length})
           </h2>
           <div className="grid grid-cols-1 gap-4">
-            {results.map((result) => (
+            {summaries.map((result) => (
               <ResultCard key={result.id} result={result} />
             ))}
           </div>
