@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import ChatInterface from "@/components/ChatInterface";
 
+import { ChevronLeft } from "lucide-react";
+
 export default function ChatPage() {
   // Use the useParams hook instead of receiving params as a prop
   const params = useParams();
@@ -32,8 +34,8 @@ export default function ChatPage() {
       <header className="bg-white border-b border-gray-200 py-4 px-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center w-full justify-between gap-4">
-            <Link href="/" className="text-blue-500 hover:text-blue-700">
-              ← Back to search
+            <Link href="/" className="text-neutral-700 hover:text-neutral-400">
+              <ChevronLeft size={24} />
             </Link>
             <h1 className="text-xl font-semibold text-gray-900">
               Chat with: {fileName}

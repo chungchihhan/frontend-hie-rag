@@ -37,14 +37,10 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 md:p-12 gap-8 bg-gray-50">
+    <main className="flex min-h-screen flex-col items-center p-4 md:p-12 gap-4 bg-gray-50">
       <div className="text-center max-w-2xl">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Document Search
-        </h1>
-        <p className="text-gray-600">
-          Enter your query to search through document summaries
-        </p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Hi-RAG</h1>
+        <p className="text-gray-600">Search the relative file.</p>
       </div>
 
       <SearchForm onSearch={handleSearch} isLoading={isLoading} />
@@ -69,8 +65,9 @@ export default function Home() {
 
       {summaries.length > 0 && (
         <div className="w-full max-w-2xl">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            summaries ({summaries.length})
+          <h2 className="text-md text-neutral-400 text-end pr-4">
+            <strong className="text-neutral-600">{summaries.length}</strong>{" "}
+            results are shown below...
           </h2>
           <div className="grid grid-cols-1 gap-4">
             {summaries.map((result) => (

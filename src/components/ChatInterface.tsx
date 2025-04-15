@@ -160,18 +160,18 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
       </div>
 
       <div className="p-4">
-        <form onSubmit={handleSendMessage} className="flex gap-2">
+        <form onSubmit={handleSendMessage} className="flex gap-2 pb-8">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your query here..."
-            className="flex-1 px-4 py-2 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent"
+            className="flex-1 px-4 py-2 rounded-full border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent"
             disabled={isLoading}
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-neutral-400 text-black rounded-lg hover:bg-neurtral-600 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-opacity-50 disabled:bg-neutral-300"
+            className="p-2 text-neutral-500 rounded-lg hover:bg-neurtral-600 focus:outline-none focus:text-neutral-500 focus:ring-opacity-50 disabled:text-neutral-300"
             disabled={isLoading || !input.trim()}
           >
             {isLoading ? (
