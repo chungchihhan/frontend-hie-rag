@@ -70,12 +70,23 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
         throw new Error("Missing file ID. Cannot query chunks.");
       }
 
-      console.log("Querying chunks for file ID:", fileId);
+      // console.log("Querying chunks for file ID:", fileId);
 
-      // Query the API
+      const history = conversation
+        .filter((entry) => entry.type === "message")
+        .map((entry) => {
+          const message = entry.content as ChatMessage;
+          return {
+            role: message.isUser ? "user" : "assistant",
+            content: message.content,
+          };
+        });
+
+      // Query the chat API with history
       const chatResponse = await queryChunksChat(fileId, {
         human_message: input,
-        n_results: 3, // Default to 3 results
+        n_results: 3,
+        history,
       });
 
       // Create an entry for the results

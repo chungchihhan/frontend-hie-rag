@@ -8,6 +8,10 @@ export interface QueryRequest {
 export interface QueryChatRequest {
   human_message: string;
   n_results: number;
+  history: {
+    role: string;
+    content: string;
+  }[];
 }
 
 export interface QueryRecord {
