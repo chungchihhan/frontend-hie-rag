@@ -5,6 +5,7 @@ import { ChatMessage, QueryRecord } from "@/types";
 import MessageCard from "./MessageCard";
 import ResultMessageCard from "./ResultMessageCard";
 import { queryChunks, queryChunksChat } from "@/lib/api";
+import { Send, Loader } from "lucide-react";
 
 interface ChatInterfaceProps {
   fileId: string;
@@ -134,7 +135,7 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full w-2/3 mx-auto">
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {conversation.map((entry) => (
           <div key={entry.id}>
@@ -158,22 +159,26 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="border-t border-gray-200 p-4 bg-white">
+      <div className="p-4">
         <form onSubmit={handleSendMessage} className="flex gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your query here..."
-            className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="flex-1 px-4 py-2 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent"
             disabled={isLoading}
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-blue-300"
+            className="px-4 py-2 bg-neutral-400 text-black rounded-lg hover:bg-neurtral-600 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-opacity-50 disabled:bg-neutral-300"
             disabled={isLoading || !input.trim()}
           >
-            Send
+            {isLoading ? (
+              <Loader className="animate-spin" size={20} />
+            ) : (
+              <Send size={20} />
+            )}
           </button>
         </form>
       </div>
