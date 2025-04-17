@@ -70,3 +70,17 @@ export async function queryChunksChat(
 
   return data;
 }
+
+export async function listSummaries() {
+  const res = await fetch(`${API_BASE_URL}/list_summaries`);
+  if (!res.ok) throw new Error("Failed to fetch summaries");
+  return await res.json();
+}
+
+export async function deleteIndex(fileId: string) {
+  const res = await fetch(`${API_BASE_URL}/delete_index/${fileId}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) throw new Error("Failed to delete index");
+  return await res.json();
+}
