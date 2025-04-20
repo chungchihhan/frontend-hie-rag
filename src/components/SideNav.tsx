@@ -3,7 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search, FileText, ChevronRight } from "lucide-react";
+import {
+  Menu,
+  X,
+  Search,
+  FileText,
+  CloudUpload,
+  ChevronRight,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface NavItemProps {
@@ -87,7 +94,7 @@ export default function SideNav() {
   const navItems = [
     { href: "/", icon: <Search size={20} />, label: "搜尋" },
     { href: "/summary", icon: <FileText size={20} />, label: "摘要列表" },
-    { href: "/file", icon: <FileText size={20} />, label: "上傳檔案" },
+    { href: "/file", icon: <CloudUpload size={20} />, label: "上傳檔案" },
   ];
 
   return (
@@ -98,7 +105,8 @@ export default function SideNav() {
           width: isCollapsed ? 80 : 240,
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="bg-neutral-500 fixed top-0 left-0 h-screen z-40 shadow-xl overflow-hidden"
+        // className="bg-neutral-500 fixed top-0 left-0 h-screen z-40 shadow-xl overflow-hidden"
+        className="bg-gradient-to-br from-neutral-500 to-neutral-400 m-2 rounded-lg shadow-lg"
         style={{ minWidth: isCollapsed ? 80 : 240 }}
       >
         <div className="flex flex-col h-full">
