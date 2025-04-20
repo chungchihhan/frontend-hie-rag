@@ -10,6 +10,50 @@ import {
 
 const API_BASE_URL = "http://localhost:8000";
 
+export function streamProcessFile(
+  file: File,
+  minChunkSize = 500,
+  maxChunkSize = 1500,
+  onMessage: (data: any) => void
+) {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append(
+    "params",
+    JSON.stringify({
+      min_chunk_size: minChunkSize,
+      max_chunk_size: maxChunkSize,
+    })
+  );
+
+  const url = `${API_BASE_URL}/process/stream`;
+
+  return fetch(url, {
+    method: "POST",
+    body: formData,
+  }).then(async (res) => {
+    const reader = res.body?.getReader();
+    const decoder = new TextDecoder("utf-8");
+
+    while (true) {
+      const { done, value } = await reader!.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      chunk
+        .split("progress: ")
+        .filter(Boolean)
+        .forEach((line) => {
+          try {
+            onMessage(JSON.parse(line.trim()));
+          } catch (err) {
+            console.error("Failed to parse stream chunk:", line);
+          }
+        });
+    }
+  });
+}
+
 export async function querySummaries(
   request: QueryRequest
 ): Promise<QuerySummariesResponse> {

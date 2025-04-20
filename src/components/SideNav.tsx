@@ -87,6 +87,7 @@ export default function SideNav() {
   const navItems = [
     { href: "/", icon: <Search size={20} />, label: "搜尋" },
     { href: "/summary", icon: <FileText size={20} />, label: "摘要列表" },
+    { href: "/file", icon: <FileText size={20} />, label: "上傳檔案" },
   ];
 
   return (
