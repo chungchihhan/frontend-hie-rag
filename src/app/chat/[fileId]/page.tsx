@@ -30,7 +30,7 @@ export default function ChatPage() {
   // to display a more user-friendly title
 
   return (
-    <main className="flex flex-col h-screen">
+    <main className="flex flex-col h-screen w-full">
       <header className="bg-white border-b border-gray-200 py-4 px-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center w-full justify-between gap-4">

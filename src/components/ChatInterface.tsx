@@ -152,7 +152,7 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
 
         {isLoading && (
           <div className="flex justify-center py-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+            <Loader className="animate-spin" size={20} />
           </div>
         )}
 
