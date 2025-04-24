@@ -73,7 +73,7 @@ export default function SummaryPage() {
 
                   <Link href={`/chat/${item.metadata?.file_id}`}>
                     <h2 className="text-lg font-semibold text-neutral-800 mb-3">
-                      檔案 ID：{item.metadata?.file_id}
+                      {item.metadata?.file_name}
                     </h2>
 
                     <p className="text-sm text-neutral-700 whitespace-pre-wrap mb-4">

@@ -111,11 +111,12 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
         err instanceof Error ? err.message : "An unknown error occurred";
       console.error("Query chunks error:", errorMessage);
       setError(errorMessage);
+      console.log("Error:", errorMessage);
 
       // Create error message
       const errorMessage2: ChatMessage = {
         id: Date.now().toString(),
-        content: `Sorry, there was an error: ${errorMessage}`,
+        content: "Sorry, there was an error. Please try again later...",
         isUser: false,
         timestamp: new Date(),
       };
@@ -135,7 +136,7 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
   };
 
   return (
-    <div className="flex flex-col h-full w-2/3 mx-auto">
+    <div className="flex flex-col h-full mx-auto">
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {conversation.map((entry) => (
           <div key={entry.id}>

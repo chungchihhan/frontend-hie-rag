@@ -19,6 +19,7 @@ export interface QueryRecord {
   distance: number;
   metadata: {
     file_id: string;
+    file_name: string;
     keywords: string;
     summary: string;
     type: string;

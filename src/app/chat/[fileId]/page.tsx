@@ -12,9 +12,9 @@ export default function ChatPage() {
   const params = useParams();
   const fileId = params.fileId as string;
 
-  const [fileName, setFileName] = useState<string>(
-    fileId || "Unknown Document"
-  );
+  // const [fileName, setFileName] = useState<string>(
+  //   fileId || "Unknown Document"
+  // );
   const router = useRouter();
 
   // Validate file ID
@@ -31,15 +31,15 @@ export default function ChatPage() {
 
   return (
     <main className="flex flex-col h-screen w-full">
-      <header className="bg-white border-b border-gray-200 py-4 px-6">
+      <header className="bg-white py-4 px-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center w-full justify-between gap-4">
             <Link href="/" className="text-neutral-700 hover:text-neutral-400">
               <ChevronLeft size={24} />
             </Link>
-            <h1 className="text-xl font-semibold text-gray-900">
+            {/* <h1 className="text-xl font-semibold text-gray-900">
               Chat with: {fileName}
-            </h1>
+            </h1> */}
           </div>
         </div>
       </header>

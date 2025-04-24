@@ -42,9 +42,14 @@ export default function FileUploadPage() {
             setLoading(false);
           }
         }
+        if (data.error) {
+          setError(data.error);
+          setLoading(false);
+        }
       });
     } catch (err: any) {
-      setError(err.message || "上傳時發生錯誤");
+      console.log(err);
+      setError(err.error || "上傳時發生錯誤");
       setLoading(false);
     }
   };
@@ -107,16 +112,8 @@ export default function FileUploadPage() {
         {loading ? "處理中..." : "🚀 開始上傳"}
       </button>
 
-      {/* Error */}
-      {error && (
-        <div className="flex items-center gap-2 text-red-600 border border-red-200 bg-red-50 p-4 rounded">
-          <XCircle size={20} />
-          {error}
-        </div>
-      )}
-
       {/* Progress messages */}
-      <ul className="space-y-1 text-sm">
+      <ul className="space-y-1 text-sm flex flex-col items-center">
         {progressMessages.map((msg, idx) => {
           const isLatest = idx === progressMessages.length - 1; // 最後一筆 = 最新
           return (
@@ -135,6 +132,14 @@ export default function FileUploadPage() {
           );
         })}
       </ul>
+
+      {/* Error */}
+      {error && (
+        <div className="flex items-center gap-2 text-red-600 border border-red-200 bg-red-50 p-4 rounded-lg">
+          <XCircle size={60} />
+          {error}
+        </div>
+      )}
 
       {/* Response */}
       {response && (
