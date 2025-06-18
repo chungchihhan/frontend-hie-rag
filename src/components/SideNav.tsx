@@ -131,7 +131,7 @@ export default function SideNav() {
                     transition={{ duration: 0.3 }}
                     className="font-bold text-white text-xl whitespace-nowrap overflow-hidden"
                   >
-                    HiRAG
+                    HieRAG
                   </motion.h1>
                 )}
               </AnimatePresence>
@@ -157,7 +157,9 @@ export default function SideNav() {
 
           {/* Footer area - optional */}
           <div className="p-4 text-center">
-            {!isCollapsed && <p className="text-xs text-white">© 2025 HiRAG</p>}
+            {!isCollapsed && (
+              <p className="text-xs text-white">© 2025 HieRAG</p>
+            )}
           </div>
         </div>
       </motion.aside>

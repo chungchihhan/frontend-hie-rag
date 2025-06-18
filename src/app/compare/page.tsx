@@ -12,7 +12,7 @@ export default function CompareChunksRag() {
   const [selectedFileId, setSelectedFileId] = useState<string>("");
   const [queryText, setQueryText] = useState<string>("");
   const [nResults, setNResults] = useState<number>(5);
-  const [hiragResults, setHiragResults] = useState<any[]>([]);
+  const [hieragResults, setHieragResults] = useState<any[]>([]);
   const [ragResults, setRagResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,7 +44,7 @@ export default function CompareChunksRag() {
         rag(queryBody),
       ]);
 
-      setHiragResults(chunkRes.chunks || []);
+      setHieragResults(chunkRes.chunks || []);
       setRagResults(ragRes.chunks || []);
     } catch (err) {
       console.error("Query error", err);
@@ -101,7 +101,7 @@ export default function CompareChunksRag() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4">
             <div className="w-full">
-              <h2 className="text-2xl font-semibold">📦 HiRAG </h2>
+              <h2 className="text-2xl font-semibold">📦 HieRAG </h2>
               <select
                 className="w-full px-2 py-2 my-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent"
                 value={selectedFileId}
@@ -116,10 +116,10 @@ export default function CompareChunksRag() {
               </select>
               <div>
                 <div className="space-y-4">
-                  {hiragResults.length === 0 ? (
+                  {hieragResults.length === 0 ? (
                     <p className="text-gray-400">尚無結果</p>
                   ) : (
-                    hiragResults.map((chunk, i) => (
+                    hieragResults.map((chunk, i) => (
                       <CompareCard key={i} chunk={chunk} />
                     ))
                   )}

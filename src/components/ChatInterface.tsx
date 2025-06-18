@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { ChatMessage, QueryRecord } from "@/types";
 import MessageCard from "./MessageCard";
-import ResultMessageCard from "./ResultMessageCard";
+// import ResultMessageCard from "./ResultMessageCard";
 import { queryChunks, queryChunksChat } from "@/lib/api";
 import { Send, Loader } from "lucide-react";
 
@@ -86,7 +86,7 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
       // Query the chat API with history
       const chatResponse = await queryChunksChat(fileId, {
         human_message: input,
-        n_results: 3,
+        n_results: 6,
         history,
       });
 

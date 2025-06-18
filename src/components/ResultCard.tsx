@@ -19,13 +19,28 @@ function getSimilarityLabel(similarity: number): {
 
 export default function ResultCard({ result }: ResultCardProps) {
   const { metadata, distance } = result;
-  const similarity = Math.max(0, Math.min(1, 1 - distance / 2));
+  // const similarity = Math.max(0, Math.min(1, 1 - distance / 1000));
+  // const similarity = 1 - Math.log(distance) / Math.log(1000); // inverse log scale
+  // const similarity = Math.exp(-distance / 300); // exponential decay
+  const MIN_DISTANCE = 200;
+  const MAX_DISTANCE = 450;
+  const similarity = Math.max(
+    0,
+    Math.min(1, 1 - (distance - MIN_DISTANCE) / (MAX_DISTANCE - MIN_DISTANCE))
+  );
+
   const fillPercent = `${(similarity * 100).toFixed(0)}%`;
   const similarityInfo = getSimilarityLabel(similarity);
 
   return (
     <Link href={`/chat/${metadata.file_id}`}>
       <div className="p-4 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer bg-white space-y-3 rounded-lg">
+        <div className="flex items-center justify-between gap-2 bg-neutral-200 p-2 rounded-lg inset-shadow-xs">
+          <span>
+            <strong className="text-gray-900">{metadata.file_name}</strong>
+          </span>
+        </div>
+
         {/* Similarity Bar with Label */}
         <div className="flex items-center justify-between gap-2">
           <span className="mr-2 px-2 py-0.5 text-xs font-semibold rounded bg-gray-200">

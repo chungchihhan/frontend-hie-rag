@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <main className="flex w-full min-h-screen flex-col items-center p-4 md:p-12 gap-4 bg-gray-50">
       <div className="text-center max-w-2xl">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Hi-RAG</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Hie-RAG</h1>
         <p className="text-gray-600">Search the relative file.</p>
       </div>
 

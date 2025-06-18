@@ -41,7 +41,7 @@ export default function MessageCard({ message }: MessageCardProps) {
           </div>
           {!isUser && (
             <div className="flex justify-start text-xs opacity-70 gap-2">
-              <>Hi-RAG</>
+              <>Hie-RAG</>
               <div>
                 {timestamp.toLocaleTimeString([], {
                   hour: "2-digit",

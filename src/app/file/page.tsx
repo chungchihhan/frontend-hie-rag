@@ -8,12 +8,13 @@ import RangeSlider from "@/components/RangeSlider"; // Adjust import path as nee
 
 export default function FileUploadPage() {
   const [file, setFile] = useState<File | null>(null);
-  const [minSize, setMinSize] = useState(6000);
-  const [maxSize, setMaxSize] = useState(7500);
+  const [minSize, setMinSize] = useState(300);
+  const [maxSize, setMaxSize] = useState(500);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [progressMessages, setProgressMessages] = useState<string[]>([]);
+  const [processingTime, setProcessingTime] = useState<number | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -30,7 +31,10 @@ export default function FileUploadPage() {
     setProgressMessages([]);
     setResponse(null);
     setError(null);
+    setProcessingTime(null);
     setLoading(true);
+
+    const startTime = performance.now(); // ⏱️ Start timer
 
     try {
       await streamProcessFile(file, minSize, maxSize, (data) => {
@@ -38,6 +42,9 @@ export default function FileUploadPage() {
           setProgressMessages((prev) => [...prev, data.status]);
 
           if (data.status === "✅ Done") {
+            const endTime = performance.now(); // ⏱️ End timer
+            const duration = ((endTime - startTime) / 1000).toFixed(2);
+            setProcessingTime(parseFloat(duration));
             setResponse(data);
             setLoading(false);
           }
@@ -91,13 +98,13 @@ export default function FileUploadPage() {
           Chunk 大小設定
         </h2>
         <RangeSlider
-          min={1000}
-          max={10000}
-          step={100}
+          min={50}
+          max={2050}
+          step={30}
           minValue={minSize}
           maxValue={maxSize}
-          defaultMinValue={6000}
-          defaultMaxValue={7500}
+          defaultMinValue={300}
+          defaultMaxValue={500}
           onMinChange={setMinSize}
           onMaxChange={setMaxSize}
         />
@@ -154,6 +161,11 @@ export default function FileUploadPage() {
             <strong>Chunk 數:</strong> {response.chunk_count}
           </p>
         </div>
+      )}
+      {processingTime !== null && (
+        <p className="text-sm text-neutral-600 text-center">
+          ⏱️ 處理時間：{processingTime} 秒
+        </p>
       )}
     </div>
   );

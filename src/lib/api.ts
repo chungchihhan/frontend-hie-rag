@@ -12,8 +12,8 @@ const API_BASE_URL = "http://localhost:8000";
 
 export function streamProcessFile(
   file: File,
-  minChunkSize = 500,
-  maxChunkSize = 1500,
+  minChunkSize: number,
+  maxChunkSize: number,
   onMessage: (data: any) => void
 ) {
   const formData = new FormData();
